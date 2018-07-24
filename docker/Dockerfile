@@ -21,8 +21,12 @@ ENV HUBOT_LANG='en'                                                  \
     LIVECHAT_DEPARTMENT_ID=null                                      \
     LISTEN_ON_ALL_PUBLIC=true
 
-RUN apk --update add --no-cache git make gcc g++ python && \
-    addgroup -S hubotnat && adduser -S -g hubotnat hubotnat
+RUN apk --update add --no-cache git make gcc g++ python && \ 
+    groupadd hubotnat -g 1001 && \
+    useradd hubotnat -u 1001 -g 1001
+
+# RUN apk --update add --no-cache git make gcc g++ python && \
+#    addgroup -S hubotnat && adduser -S -g hubotnat hubotnat
 
 USER node
 
@@ -42,7 +46,7 @@ RUN mkdir -p /home/hubotnat/.config/configstore                             && \
     echo "optOut: true" > /home/hubotnat/.config/configstore/insight-yo.yml && \
     chown -R hubotnat:hubotnat /home/hubotnat
 
-USER hubotnat
+USER 1001
 
 RUN yo hubot --adapter ${HUBOT_ADAPTER}         \
              --owner ${HUBOT_OWNER}             \
