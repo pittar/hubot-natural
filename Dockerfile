@@ -21,8 +21,12 @@ ENV HUBOT_LANG='en'                                                  \
     LIVECHAT_DEPARTMENT_ID=null                                      \
     LISTEN_ON_ALL_PUBLIC=true
 
-RUN apk --update add --no-cache git make gcc g++ python && \
-    addgroup -S hubotnat && adduser -S -g hubotnat hubotnat
+#RUN apk --update add --no-cache git make gcc g++ python && \
+#    addgroup -S hubotnat && adduser -S -g hubotnat hubotnat
+    
+RUN apk --update add --no-cache git make gcc g++ python && \ 
+    groupadd hubotnat -g 1001 && \
+    useradd hubotnat -u 1001 -g 1001
 
 USER node
 
