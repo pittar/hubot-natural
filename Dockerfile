@@ -25,7 +25,7 @@ ENV HUBOT_LANG='en'                                                  \
 #    addgroup -S hubotnat && adduser -S -g hubotnat hubotnat
     
 RUN apk --update add --no-cache git make gcc g++ python && \ 
-    groupadd hubotnat -g 1001 && \
+    addgroup hubotnat -g 1001 && \
     useradd hubotnat -u 1001 -g 1001
 
 USER node
